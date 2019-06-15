@@ -6,33 +6,23 @@ import (
 	"github.com/stanaka/atcoder-answers/utils"
 )
 
-func TestAnswer1(t *testing.T) {
-	input := ``
-	expect := ``
-
-	output := utils.Helper(input, answer)
-	if output != expect {
-		t.Errorf("expect %v, but %v", expect, output)
-	}
+type testCase struct {
+	input  string
+	expect string
 }
 
-func TestAnswer2(t *testing.T) {
-	input := ``
-	expect := ``
-
-	output := utils.Helper(input, answer)
-	if output != expect {
-		t.Errorf("expect %v, but %v", expect, output)
+func TestAnswer(t *testing.T) {
+	testCases := []testCase{
+		{``, ``},
+		{``, ``},
+		{``, ``},
 	}
-}
 
-func TestAnswer3(t *testing.T) {
-	input := ``
-	expect := ``
-
-	output := utils.Helper(input, answer)
-	if output != expect {
-		t.Errorf("expect %v, but %v", expect, output)
+	for i, v := range testCases {
+		output := utils.Helper(v.input, answer)
+		if output != v.expect {
+			t.Errorf("case[%d]: expect %v, but %v", i+1, v.expect, output)
+		}
 	}
 }
 
