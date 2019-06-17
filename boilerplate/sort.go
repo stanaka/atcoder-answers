@@ -18,4 +18,7 @@ func (b bcs) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
 
 func answer(reader io.Reader, writer io.Writer) {
 	sort.Sort(sort.Reverse(bcs(b)))
+
+	sort.Ints(p)
+	sort.Sort(sort.Reverse(sort.IntSlice(m)))
 }
