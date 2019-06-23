@@ -1,5 +1,66 @@
 package main
 
+func primeFactors(n uint64) (pfs map[uint64]uint64) {
+	pfs = make(map[uint64]uint64)
+	for n%2 == 0 {
+		pfs[2]++
+		n = n / 2
+	}
+
+	var i uint64
+	for i = 3; i*i <= n; i = i + 2 {
+		for n%i == 0 {
+			pfs[i]++
+			n = n / i
+		}
+	}
+
+	if n > 2 {
+		pfs[n]++
+	}
+	return
+}
+
+// greatest common divisor (GCD) via Euclidean algorithm
+func GCD(a, b int) int {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+	return a
+}
+
+// find Least Common Multiple (LCM) via GCD
+func LCM(a, b int, integers ...int) int {
+	result := a * b / GCD(a, b)
+
+	for i := 0; i < len(integers); i++ {
+		result = LCM(result, integers[i])
+	}
+
+	return result
+}
+
+func GCD(a, b uint64) uint64 {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+	return a
+}
+
+func LCM(a, b uint64, integers ...uint64) uint64 {
+	result := a * b / GCD(a, b)
+
+	for i := 0; i < len(integers); i++ {
+		result = LCM(result, integers[i])
+	}
+
+	return result
+}
+
 // n factorial (mod M)
 // return: array of factorial of 0-n
 func mfactorial(n, M uint64) []uint64 {
@@ -53,6 +114,37 @@ func pow(x, y int) int {
 	return z
 }
 
+func min(a ...int) int {
+	res := a[0]
+	for i := 1; i < len(a); i++ {
+		if res > a[i] {
+			res = a[i]
+		}
+	}
+	return res
+}
+
+func max(a ...int) int {
+	res := a[0]
+	for i := 1; i < len(a); i++ {
+		if res < a[i] {
+			res = a[i]
+		}
+	}
+	return res
+}
+
+func minUint64(a ...uint64) uint64 {
+	res := a[0]
+	for i := 1; i < len(a); i++ {
+		if res > a[i] {
+			res = a[i]
+		}
+	}
+	return res
+}
+
+/*
 func min(x, y int) int {
 	if x < y {
 		return x
@@ -66,6 +158,7 @@ func max(x, y int) int {
 	}
 	return y
 }
+*/
 
 func abs(x int) int {
 	if x < 0 {
@@ -73,3 +166,17 @@ func abs(x int) int {
 	}
 	return x
 }
+
+// uint8  : 0 to 255
+// uint16 : 0 to 65535
+// uint32 : 0 to 4294967295
+// uint64 : 0 to 18446744073709551615
+// int8   : -128 to 127
+// int16  : -32768 to 32767
+// int32  : -2147483648 to 2147483647
+// int64  : -9223372036854775808 to 9223372036854775807
+
+const MaxUint = ^uint(0)
+const MinUint = 0
+const MaxInt = int(MaxUint >> 1)
+const MinInt = -MaxInt - 1

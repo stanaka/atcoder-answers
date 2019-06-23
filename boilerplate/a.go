@@ -23,13 +23,6 @@ func nextInt() int {
 	return i
 }
 
-func nextString() string {
-	if !sc.Scan() {
-		panic(nil)
-	}
-	return sc.Text()
-}
-
 var production bool
 
 func debugf(format string, v ...interface{}) {
