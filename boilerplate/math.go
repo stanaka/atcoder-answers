@@ -1,5 +1,11 @@
 package main
 
+import (
+	"bufio"
+	"fmt"
+	"io"
+)
+
 func primeFactors(n uint64) (pfs map[uint64]uint64) {
 	pfs = make(map[uint64]uint64)
 	for n%2 == 0 {
@@ -100,6 +106,48 @@ func mcombi(n, k, M uint64) uint64 {
 	ans *= mpow(fact[n-k], M-2, M) % M
 
 	return ans % M
+}
+
+type combi struct {
+	fac  []int
+	finv []int
+	inv  []int
+	mod  int
+}
+
+func (c *combi) init(n int, m int) {
+	c.fac = make([]int, n)
+	c.finv = make([]int, n)
+	c.inv = make([]int, n)
+	c.mod = m
+
+	c.fac[0] = 1
+	c.fac[1] = 1
+	c.finv[0] = 1
+	c.finv[1] = 1
+	c.inv[1] = 1
+	for i := 2; i < n; i++ {
+		c.fac[i] = c.fac[i-1] * i % c.mod
+		c.inv[i] = c.mod - c.inv[c.mod%i]*(c.mod/i)%c.mod
+		c.finv[i] = c.finv[i-1] * c.inv[i] % c.mod
+	}
+}
+
+func (c *combi) combi(n, k int) int {
+	if n < k {
+		return 0
+	}
+	if n < 0 || k < 0 {
+		return 0
+	}
+	return c.fac[n] * (c.finv[k] * c.finv[n-k] % c.mod) % c.mod
+}
+
+func answer(reader io.Reader, writer io.Writer) {
+	var c combi
+	mod := int(1e9) + 7
+	c.init(n+1, mod)
+	b := c.combi(k-1, i)
 }
 
 func pow(x, y int) int {
