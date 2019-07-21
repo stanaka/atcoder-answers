@@ -21,4 +21,9 @@ func answer(reader io.Reader, writer io.Writer) {
 
 	sort.Ints(p)
 	sort.Sort(sort.Reverse(sort.IntSlice(m)))
+
+	// binary search for sorted array
+	j := sort.Search(len(a), func(k int) bool { return a[k] > x })
+	// binary search for reversed sorted array
+	j := sort.Search(len(a), func(k int) bool { return a[k] < x })
 }
