@@ -14,6 +14,7 @@ func answer(reader io.Reader, writer io.Writer) {
 	sc = bufio.NewScanner(reader)
 	buf := make([]byte, BufferSize)
 	sc.Buffer(buf, 1e+6)
+	sc.Split(bufio.ScanWords)
 	n := nextInt()
 	e := make([][]edge, n)
 
@@ -95,4 +96,20 @@ func radius(e [][]int) int {
 
 	_, count := bfs(e, farthest)
 	return count
+}
+
+func reachable(g [][]int, start int) []bool {
+	n := len(g)
+	ok := make([]bool, n)
+	var dfs func(int)
+	dfs = func(v int) {
+		ok[v] = true
+		for _, u := range g[v] {
+			if !ok[u] {
+				dfs(u)
+			}
+		}
+	}
+	dfs(start)
+	return ok
 }
