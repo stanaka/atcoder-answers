@@ -28,16 +28,21 @@ func TestAnswer(t *testing.T) {
 
 /*
 func TestAnswerGenerate1(t *testing.T) {
-	input := `100000
-`
-	for i := 0; i < 100000; i++ {
-		input += "0 "
+	var buffer bytes.Buffer
+	//num := 2 * 100000
+	num := 2 * 100000
+	buffer.WriteString(fmt.Sprintf("%d %d %d\n", num, num, 1))
+	for i := 0; i < num; i++ {
+		buffer.WriteString(fmt.Sprintf("%d %d\n", i, i+1))
 	}
-	expect := `0`
+	input := buffer.String()
+	expect := `5`
 
 	s := time.Now().UnixNano()
 	fmt.Printf("start:%d\n", time.Now().UnixNano()/1000000)
+	production = true
 	output := utils.Helper(input, answer)
+	//output := expect
 	fmt.Printf("end  :%d (%d msec)\n", time.Now().UnixNano()/1000000, (time.Now().UnixNano()-s)/1000000)
 	if output != expect {
 		t.Errorf("expect %v, but %v", expect, output)
