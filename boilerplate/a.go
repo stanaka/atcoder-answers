@@ -10,7 +10,7 @@ import (
 
 var sc *bufio.Scanner
 
-const BufferSize = 1024
+const bufferSize = 1024
 
 func nextInt() int {
 	if !sc.Scan() {
@@ -33,8 +33,8 @@ func debugf(format string, v ...interface{}) {
 
 func answer(reader io.Reader, writer io.Writer) {
 	sc = bufio.NewScanner(reader)
-	buf := make([]byte, BufferSize)
-	sc.Buffer(buf, 1e+6)
+	buf := make([]byte, bufferSize)
+	sc.Buffer(buf, 1e+7)
 	sc.Split(bufio.ScanWords)
 	n := nextInt()
 	s := make([]int, n)
