@@ -98,9 +98,11 @@ func radius(e [][]int) int {
 	return count
 }
 
-func reachable(g [][]int, start int) []bool {
-	n := len(g)
-	ok := make([]bool, n)
+func reachable(g [][]int, start int) map[int]bool {
+	//func reachable(g [][]int, start int) []bool {
+	//n := len(g)
+	//ok := make([]bool, n)
+	ok := map[int]bool{}
 	var dfs func(int)
 	dfs = func(v int) {
 		ok[v] = true
